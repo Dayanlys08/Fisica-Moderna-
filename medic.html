@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Física Moderna: Una Aliada de la Medicina</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #060911;
+      --bg-card: #0c1322;
+      --bg-card-hover: #121c33;
+      --accent-cyan: #06b6d4;
+      --accent-blue: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* --- NAVEGACIÓN --- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      position: sticky;
+      top: 0;
+      background-color: rgba(6, 9, 17, 0.9);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .logo svg {
+      width: 32px;
+      height: 32px;
+      color: var(--accent-cyan);
+      animation: spinLogo 12s linear infinite;
+    }
+
+    @keyframes spinLogo {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .logo span {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--accent-blue);
+      font-weight: 400;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent-cyan);
+    }
+
+    /* --- HERO & ÁTOMO ANIMADO --- */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 4rem 5%;
+      gap: 3rem;
+      min-height: 75vh;
+    }
+
+    .badge {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.8rem;
+      color: var(--accent-cyan);
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 span {
+      color: var(--accent-cyan);
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+
+    .btn-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+
+    .btn-main:hover {
+      background-color: var(--accent-cyan);
+      color: #000;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+    }
+
+    /* --- ÁTOMO ANIMADO DE SALUD --- */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .atom-container {
+      width: 300px;
+      height: 300px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .atom-core {
+      width: 55px;
+      height: 55px;
+      background: radial-gradient(circle, #ecfeff 0%, #06b6d4 50%, #0284c7 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 35px #06b6d4, 0 0 70px rgba(6, 182, 212, 0.4);
+      animation: pulseCore 2.5s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+
+    @keyframes pulseCore {
+      0% { transform: scale(0.9); box-shadow: 0 0 25px #06b6d4; }
+      100% { transform: scale(1.15); box-shadow: 0 0 45px #06b6d4, 0 0 80px rgba(6, 182, 212, 0.6); }
+    }
+
+    .orbit {
+      position: absolute;
+      width: 260px;
+      height: 90px;
+      border: 2px solid rgba(6, 182, 212, 0.6);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.2);
+    }
+
+    .orbit::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      width: 12px;
+      height: 12px;
+      background-color: #cff4fc;
+      border-radius: 50%;
+      box-shadow: 0 0 15px #06b6d4, 0 0 25px #ffffff;
+    }
+
+    .orbit-1 { animation: spinOrbit1 6s linear infinite; }
+    .orbit-2 { animation: spinOrbit2 8s linear infinite reverse; }
+    .orbit-3 { animation: spinOrbit3 7s linear infinite; }
+
+    @keyframes spinOrbit1 {
+      0% { transform: rotate(0deg) rotateX(65deg); }
+      100% { transform: rotate(360deg) rotateX(65deg); }
+    }
+
+    @keyframes spinOrbit2 {
+      0% { transform: rotate(60deg) rotateX(65deg); }
+      100% { transform: rotate(420deg) rotateX(65deg); }
+    }
+
+    @keyframes spinOrbit3 {
+      0% { transform: rotate(120deg) rotateX(65deg); }
+      100% { transform: rotate(480deg) rotateX(65deg); }
+    }
+
+    .quote-handwriting {
+      position: absolute;
+      right: -10px;
+      bottom: -30px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      transform: rotate(-4deg);
+      max-width: 230px;
+    }
+
+    /* --- TEMAS MÉRITOS Y TECNOLOGÍA --- */
+    .section-title {
+      padding: 3rem 5% 1rem 5%;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.5rem;
+      padding: 1.5rem 5% 4rem 5%;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      background-color: var(--bg-card-hover);
+      transform: translateY(-5px);
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-img-wrapper {
+      width: 100%;
+      height: 150px;
+      overflow: hidden;
+    }
+
+    .card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover .card-img-wrapper img {
+      transform: scale(1.08);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.6rem;
+      color: var(--text-main);
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 1rem;
+    }
+
+    /* DESPLEGABLE */
+    .extra-content {
+      display: none;
+      margin-top: 0.8rem;
+      padding-top: 0.8rem;
+      border-top: 1px dashed rgba(6, 182, 212, 0.25);
+      color: #cbd5e1;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .card.active .extra-content {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-toggle {
+      background: none;
+      border: none;
+      color: var(--accent-cyan);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
+
+    .btn-toggle:hover {
+      text-decoration: underline;
+    }
+
+    /* --- RESUMEN Y FOOTER --- */
+    .summary-section {
+      background: linear-gradient(180deg, var(--bg-dark) 0%, #071224 100%);
+      padding: 4rem 5%;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .summary-text h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .summary-quote {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      color: var(--accent-cyan);
+      margin-top: 1rem;
+    }
+
+    footer {
+      padding: 2rem 5%;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .author {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero p {
+        margin: 0 auto 2rem auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVEGACIÓN -->
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"></circle>
+        <ellipse cx="12" cy="12" rx="10" ry="4"></ellipse>
+        <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"></ellipse>
+        <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"></ellipse>
+      </svg>
+      <div>
+        Física y Medicina
+        <span>Avances que Salvan Vidas</span>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#temas">Aplicaciones</a></li>
+        <li><a href="#conclusion">Conclusión</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO CON ÁTOMO ANIMADO -->
+  <section id="inicio" class="hero">
+    <div>
+      <div class="badge">Salud y Tecnología</div>
+      <h1>La Física Moderna: <span>Una Aliada de la Medicina</span></h1>
+      <p>La física cuántica, la tecnología nuclear y la óptica avanzada han transformado la medicina contemporánea, permitiendo diagnosticar y curar enfermedades sin invadir el cuerpo humano.</p>
+      <a href="#temas" class="btn-main">Explorar Avances &rarr;</a>
+    </div>
+
+    <div class="hero-visual">
+      <div class="atom-container">
+        <div class="atom-core"></div>
+        <div class="orbit orbit-1"></div>
+        <div class="orbit orbit-2"></div>
+        <div class="orbit orbit-3"></div>
+      </div>
+      <div class="quote-handwriting">
+        "La física moderna revolucionó la medicina para proteger la vida humana"
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMAS CON ILUSTRACIONES -->
+  <div id="temas" class="section-title">
+    <div class="badge">Tecnologías Médicas</div>
+    <h2>Diagnósticos y tratamientos avanzados</h2>
+    <p style="color: var(--text-muted); margin-top: 0.5rem;">Haz clic en <strong>"Leer más"</strong> para desplegar los detalles de cada tecnología.</p>
+  </div>
+
+  <section class="cards-grid">
+
+    <!-- Tarjeta 1 -->
+    <div class="card">
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80" alt="Resonancia Magnética">
+      </div>
+      <div class="card-content">
+        <h3>1. Resonancia Magnética (RM)</h3>
+        <p>Obtiene imágenes tridimensionales detalladas de órganos y tejidos sin usar radiaciones nocivas.</p>
+        
+        <div class="extra-content">
+          <strong>¿Cómo funciona?</strong><br>
+          Aprovecha las propiedades del espín nuclear de los átomos de hidrógeno en el cuerpo humano. Al aplicar imanes superconductores y campos magnéticos, los átomos emiten señales que una computadora transforma en imágenes anatómicas precisas.
+        </div>
+        
+        <button class="btn-toggle" onclick="toggleCard(this)">
+          <span>Leer más</span> &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Tarjeta 2 -->
+    <div class="card">
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80" alt="Medicina Nuclear y PET">
+      </div>
+      <div class="card-content">
+        <h3>2. Tomografía por Emisión de Positrones (PET)</h3>
+        <p>Permite visualizar el funcionamiento metabólico de los órganos a nivel celular en tiempo real.</p>
+        
+        <div class="extra-content">
+          <strong>¿Cómo funciona?</strong><br>
+          Utiliza la física de partículas y antimateria: detecta los fotones generados cuando un positrón (antimateria de un electrón) se aniquila al colisionar, revelando zonas con cáncer o desórdenes neurológicos precozmente.
+        </div>
+
+        <button class="btn-toggle" onclick="toggleCard(this)">
+          <span>Leer más</span> &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Tarjeta 3 -->
+    <div class="card">
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=600&q=80" alt="Radioterapia y Cirugía Láser">
+      </div>
+      <div class="card-content">
+        <h3>3. Radioterapia Oncológica y Láser</h3>
+        <p>Aplica haces de energía concentrada para eliminar tumores cancerígenos y realizar cirugías.</p>
+        
+        <div class="extra-content">
+          <strong>¿Cómo funciona?</strong><br>
+          Aceleradores lineales de partículas dirigen radiación ionizante para destruir el ADN de células cancerosas sin dañar los tejidos sanos. Asimismo, los láseres quirúrgicos realizan incisiones micrométricas milimétricas.
+        </div>
+
+        <button class="btn-toggle" onclick="toggleCard(this)">
+          <span>Leer más</span> &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Tarjeta 4 -->
+    <div class="card">
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=600&q=80" alt="Nanomedicina">
+      </div>
+      <div class="card-content">
+        <h3>4. Nanomedicina y Física Cuántica</h3>
+        <p>Nanomateriales diseñados para llevar medicamentos directamente a las células enfermas.</p>
+        
+        <div class="extra-content">
+          <strong>¿Cómo funciona?</strong><br>
+          A escala nanométrica, la física de superficies y cuántica permite crear partículas transportadoras dirigidas que liberan fármacos exclusivamente dentro del tumor, reduciendo los efectos secundarios de la quimioterapia.
+        </div>
+
+        <button class="btn-toggle" onclick="toggleCard(this)">
+          <span>Leer más</span> &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Tarjeta 5 -->
+    <div class="card">
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?auto=format&fit=crop&w=600&q=80" alt="Ecografía Ultrasonido">
+      </div>
+      <div class="card-content">
+        <h3>5. Ultrasonido y Rayos X Digitales</h3>
+        <p>Aprovecha las ondas acústicas de alta frecuencia y la radiación X para exploraciones rápidas.</p>
+        
+        <div class="extra-content">
+          <strong>¿Cómo funciona?</strong><br>
+          Mediante el efecto piezoeléctrico (física del estado sólido), los transductores emiten ondas sonoras que rebotan en los tejidos creando imágenes del feto o de órganos sin emitir radiación ionizante.
+        </div>
+
+        <button class="btn-toggle" onclick="toggleCard(this)">
+          <span>Leer más</span> &rarr;
+        </button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CONCLUSIÓN -->
+  <section id="conclusion" class="summary-section">
+    <div class="summary-text">
+      <div class="badge">En Resumen</div>
+      <h2>Un pilar fundamental para la salud</h2>
+      <p>Sin las teorías de la física moderna (mecánica cuántica, física nuclear y electromagnetismo), la medicina actual carecería de sus herramientas de diagnóstico y tratamiento más potentes y precisas.</p>
+      <div class="summary-quote">La física no solo comprende el universo, salva vidas humanas.</div>
+    </div>
+  </section>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <div class="author">Creado por: Ibelys Salgado 🤍</div>
+    <div>Solo para uso personal | Acceso mediante código QR</div>
+  </footer>
+
+  <script>
+    function toggleCard(button) {
+      const card = button.closest('.card');
+      card.classList.toggle('active');
+      const label = button.querySelector('span');
+
+      if (card.classList.contains('active')) {
+        label.textContent = 'Ocultar';
+        button.style.color = '#f43f5e';
+      } else {
+        label.textContent = 'Leer más';
+        button.style.color = '#06b6d4';
+      }
+    }
+  </script>
+</body>
+</html>
