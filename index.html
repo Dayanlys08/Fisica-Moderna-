@@ -14,7 +14,7 @@
       --accent-glow: #0284c7;
       --text-main: #f1f5f9;
       --text-muted: #94a3b8;
-      --border-color: rgba(56, 189, 248, 0.15);
+      --border-color: rgba(56, 189, 248, 0.18);
     }
 
     * {
@@ -36,10 +36,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 5%;
+      padding: 1.2rem 5%;
       position: sticky;
       top: 0;
-      background-color: rgba(8, 12, 20, 0.85);
+      background-color: rgba(8, 12, 20, 0.9);
       backdrop-filter: blur(12px);
       z-index: 100;
       border-bottom: 1px solid var(--border-color);
@@ -50,13 +50,19 @@
       align-items: center;
       gap: 12px;
       font-weight: 700;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
     }
 
     .logo svg {
       width: 32px;
       height: 32px;
       color: var(--accent-blue);
+      animation: spinLogo 12s linear infinite;
+    }
+
+    @keyframes spinLogo {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .logo span {
@@ -79,19 +85,18 @@
       transition: color 0.3s;
     }
 
-    nav a:hover, nav a.active {
+    nav a:hover {
       color: var(--accent-blue);
     }
 
-    /* --- HERO / INICIO --- */
+    /* --- HERO & ÁTOMO ANIMADO --- */
     .hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      padding: 5rem 5%;
+      padding: 4rem 5%;
       gap: 3rem;
-      min-height: 80vh;
-      position: relative;
+      min-height: 75vh;
     }
 
     .badge {
@@ -100,14 +105,14 @@
       font-size: 0.8rem;
       color: var(--accent-blue);
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
 
     .hero h1 {
-      font-size: 3.2rem;
+      font-size: 3rem;
       font-weight: 800;
       line-height: 1.15;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
     }
 
     .hero h1 span {
@@ -116,7 +121,7 @@
 
     .hero p {
       color: var(--text-muted);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       margin-bottom: 2rem;
       max-width: 500px;
     }
@@ -133,15 +138,15 @@
       font-weight: 600;
       transition: all 0.3s ease;
       background: transparent;
-      cursor: pointer;
     }
 
     .btn-main:hover {
       background-color: var(--accent-blue);
       color: #000;
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
     }
 
+    /* --- ÁTOMO 3D ANIMADO --- */
     .hero-visual {
       display: flex;
       justify-content: center;
@@ -150,74 +155,112 @@
     }
 
     .atom-container {
-      width: 320px;
-      height: 320px;
+      width: 300px;
+      height: 300px;
       position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .atom-core {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 50px;
-      height: 50px;
-      background: radial-gradient(circle, #38bdf8 0%, #0284c7 100%);
+      width: 55px;
+      height: 55px;
+      background: radial-gradient(circle, #f0f9ff 0%, #38bdf8 50%, #0284c7 100%);
       border-radius: 50%;
-      box-shadow: 0 0 30px #38bdf8;
+      box-shadow: 0 0 35px #38bdf8, 0 0 70px rgba(56, 189, 248, 0.4);
+      animation: pulseCore 2.5s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+
+    @keyframes pulseCore {
+      0% { transform: scale(0.9); box-shadow: 0 0 25px #38bdf8; }
+      100% { transform: scale(1.15); box-shadow: 0 0 45px #38bdf8, 0 0 80px rgba(56, 189, 248, 0.6); }
     }
 
     .orbit {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 2px solid rgba(56, 189, 248, 0.4);
+      width: 260px;
+      height: 90px;
+      border: 2px solid rgba(56, 189, 248, 0.6);
       border-radius: 50%;
-      animation: spin 8s linear infinite;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
     }
 
-    .orbit:nth-child(2) { transform: rotate(60deg); }
-    .orbit:nth-child(3) { transform: rotate(120deg); }
+    /* Partículas de electrones */
+    .orbit::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      width: 12px;
+      height: 12px;
+      background-color: #e0f2fe;
+      border-radius: 50%;
+      box-shadow: 0 0 15px #38bdf8, 0 0 25px #ffffff;
+    }
 
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
+    .orbit-1 {
+      transform: rotate(0deg);
+      animation: spinOrbit1 6s linear infinite;
+    }
+
+    .orbit-2 {
+      transform: rotate(60deg);
+      animation: spinOrbit2 8s linear infinite reverse;
+    }
+
+    .orbit-3 {
+      transform: rotate(120deg);
+      animation: spinOrbit3 7s linear infinite;
+    }
+
+    @keyframes spinOrbit1 {
+      0% { transform: rotate(0deg) rotateX(65deg); }
+      100% { transform: rotate(360deg) rotateX(65deg); }
+    }
+
+    @keyframes spinOrbit2 {
+      0% { transform: rotate(60deg) rotateX(65deg); }
+      100% { transform: rotate(420deg) rotateX(65deg); }
+    }
+
+    @keyframes spinOrbit3 {
+      0% { transform: rotate(120deg) rotateX(65deg); }
+      100% { transform: rotate(480deg) rotateX(65deg); }
     }
 
     .quote-handwriting {
       position: absolute;
-      right: 0;
-      bottom: -20px;
+      right: -10px;
+      bottom: -30px;
       font-family: 'Caveat', cursive;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: var(--text-muted);
-      transform: rotate(-5deg);
-      max-width: 250px;
-      line-height: 1.2;
+      transform: rotate(-4deg);
+      max-width: 230px;
     }
 
-    /* --- TEMAS PRINCIPALES --- */
+    /* --- TEMAS CON ILUSTRACIONES --- */
     .section-title {
-      padding: 4rem 5% 1rem 5%;
+      padding: 3rem 5% 1rem 5%;
     }
 
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 1.5rem;
-      padding: 2rem 5%;
+      padding: 1.5rem 5% 4rem 5%;
     }
 
     .card {
       background-color: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 1.8rem;
+      overflow: hidden;
       transition: all 0.3s ease;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
 
     .card:hover {
@@ -227,29 +270,49 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
-    .card-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    .card-img-wrapper {
+      width: 100%;
+      height: 150px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover .card-img-wrapper img {
+      transform: scale(1.08);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
     }
 
     .card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.8rem;
+      font-size: 1.15rem;
+      margin-bottom: 0.6rem;
       color: var(--text-main);
     }
 
     .card p {
       color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 1.2rem;
+      font-size: 0.88rem;
+      margin-bottom: 1rem;
     }
 
-    /* TEXTO OCULTO DESPLEGABLE */
+    /* DESPLEGABLE */
     .extra-content {
       display: none;
       margin-top: 0.8rem;
       padding-top: 0.8rem;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      border-top: 1px dashed rgba(56, 189, 248, 0.2);
       color: #cbd5e1;
       font-size: 0.85rem;
       line-height: 1.5;
@@ -275,35 +338,24 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 0;
       margin-top: auto;
+      padding-top: 0.5rem;
     }
 
     .btn-toggle:hover {
       text-decoration: underline;
     }
 
-    /* --- RESUMEN / CONCLUSIÓN --- */
+    /* --- RESUMEN Y FOOTER --- */
     .summary-section {
       background: linear-gradient(180deg, var(--bg-dark) 0%, #0a1120 100%);
-      padding: 5rem 5%;
-      margin-top: 3rem;
+      padding: 4rem 5%;
       border-top: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 2rem;
     }
 
     .summary-text h2 {
-      font-size: 2.2rem;
+      font-size: 2rem;
       margin-bottom: 1rem;
-    }
-
-    .summary-text p {
-      color: var(--text-muted);
-      max-width: 600px;
     }
 
     .summary-quote {
@@ -313,7 +365,6 @@
       margin-top: 1rem;
     }
 
-    /* --- PIE DE PÁGINA / FOOTER --- */
     footer {
       padding: 2rem 5%;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -331,7 +382,6 @@
       font-weight: 600;
     }
 
-    /* RESPONSIVO */
     @media (max-width: 768px) {
       .hero {
         grid-template-columns: 1fr;
@@ -339,14 +389,6 @@
       }
       .hero p {
         margin: 0 auto 2rem auto;
-      }
-      .quote-handwriting {
-        position: relative;
-        bottom: 0;
-        margin-top: 1rem;
-      }
-      nav ul {
-        gap: 1rem;
       }
     }
   </style>
@@ -369,14 +411,14 @@
     </div>
     <nav>
       <ul>
-        <li><a href="#inicio" class="active">Inicio</a></li>
+        <li><a href="#inicio">Inicio</a></li>
         <li><a href="#temas">Temas</a></li>
         <li><a href="#conclusion">Conclusión</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- HERO SECTION -->
+  <!-- HERO CON ÁTOMO ANIMADO -->
   <section id="inicio" class="hero">
     <div>
       <div class="badge">Ciencia que nos rodea</div>
@@ -388,9 +430,9 @@
     <div class="hero-visual">
       <div class="atom-container">
         <div class="atom-core"></div>
-        <div class="orbit"></div>
-        <div class="orbit"></div>
-        <div class="orbit"></div>
+        <div class="orbit orbit-1"></div>
+        <div class="orbit orbit-2"></div>
+        <div class="orbit orbit-3"></div>
       </div>
       <div class="quote-handwriting">
         "La física moderna no solo explica el universo, también mejora nuestra vida"
@@ -398,98 +440,113 @@
     </div>
   </section>
 
-  <!-- TEMAS PRINCIPALES -->
+  <!-- TEMAS CON ILUSTRACIONES -->
   <div id="temas" class="section-title">
     <div class="badge">Temas Principales</div>
     <h2>Conceptos clave y sus aplicaciones</h2>
-    <p style="color: var(--text-muted);">Haz clic en "Leer más" en cualquier tarjeta para desplegar la información completa.</p>
+    <p style="color: var(--text-muted); margin-top: 0.5rem;">Haz clic en <strong>"Leer más"</strong> para desplegar la información completa e ilustraciones detalladas.</p>
   </div>
 
   <section class="cards-grid">
 
     <!-- Tarjeta 1 -->
     <div class="card">
-      <div>
-        <div class="card-icon">💻</div>
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Física Cuántica">
+      </div>
+      <div class="card-content">
         <h3>1. Física Cuántica</h3>
         <p>Está en los celulares, computadoras y en la tecnología que usamos para conectarnos, trabajar y estudiar.</p>
         
-        <!-- Texto desplegable -->
         <div class="extra-content">
-          Sin la mecánica cuántica no existirían los semiconductores ni los transistores que hacen funcionar los procesadores de nuestros smartphones. También permite el desarrollo de láseres y pantallas OLED.
+          <strong>Aplicación práctica:</strong><br>
+          Sin la mecánica cuántica no existirían los microprocesadores que usan los celulares. Los fotones y electrones controlados cuánticamente permiten pantallas OLED, memorias flash y láseres en lectores ópticos.
         </div>
+        
+        <button class="btn-toggle" onclick="toggleCard(this)">
+          <span>Leer más</span> &rarr;
+        </button>
       </div>
-      <button class="btn-toggle" onclick="toggleCard(this)">
-        <span>Leer más</span> &rarr;
-      </button>
     </div>
 
     <!-- Tarjeta 2 -->
     <div class="card">
-      <div>
-        <div class="card-icon">🛰️</div>
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=600&q=80" alt="Teoría de la Relatividad">
+      </div>
+      <div class="card-content">
         <h3>2. Teoría de la Relatividad</h3>
         <p>Hace posible que el GPS funcione correctamente y que se puedan hacer viajes espaciales precisos.</p>
         
-        <!-- Texto desplegable -->
         <div class="extra-content">
-          Los satélites de GPS están expuestos a una gravedad menor y se mueven a gran velocidad, por lo que el tiempo pasa diferente para ellos según la relatividad de Einstein. Los relojes del GPS deben ajustar este desfase diariamente para no errar tu ubicación por kilómetros.
+          <strong>Aplicación práctica:</strong><br>
+          Los satélites orbitan a gran velocidad y en menor gravedad, provocando un desfasaje en sus relojes de precisión. Las ecuaciones de Einstein corrigen este tiempo diariamente para que el GPS de tu celular ubique tu posición exacta.
         </div>
+
+        <button class="btn-toggle" onclick="toggleCard(this)">
+          <span>Leer más</span> &rarr;
+        </button>
       </div>
-      <button class="btn-toggle" onclick="toggleCard(this)">
-        <span>Leer más</span> &rarr;
-      </button>
     </div>
 
     <!-- Tarjeta 3 -->
     <div class="card">
-      <div>
-        <div class="card-icon">⚡</div>
-        <h3>3. Energía Nuclear</h3>
-        <p>Se usa en plantas de energía para generar electricidad y también en la medicina para diagnosticar enfermedades.</p>
-        
-        <!-- Texto desplegable -->
-        <div class="extra-content">
-          La fisión nuclear produce millones de kilovatios de energía limpia en el mundo. Además, en la medicina se aplican radioisótopos para combatir tumores cancerígenos y realizar tomografías muy detalladas.
-        </div>
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=600&q=80" alt="Energía Nuclear">
       </div>
-      <button class="btn-toggle" onclick="toggleCard(this)">
-        <span>Leer más</span> &rarr;
-      </button>
+      <div class="card-content">
+        <h3>3. Energía Nuclear</h3>
+        <p>Se usa en plantas de energía para generar electricidad y en medicina para tratar enfermedades.</p>
+        
+        <div class="extra-content">
+          <strong>Aplicación práctica:</strong><br>
+          La fisión de núcleos atómicos produce electricidad limpia y masiva. En la medicina nuclear, los radioisótopos permiten rastrear tumores y aplicar radioterapias de precisión.
+        </div>
+
+        <button class="btn-toggle" onclick="toggleCard(this)">
+          <span>Leer más</span> &rarr;
+        </button>
+      </div>
     </div>
 
     <!-- Tarjeta 4 -->
     <div class="card">
-      <div>
-        <div class="card-icon">📱</div>
-        <h3>4. Materiales Avanzados</h3>
-        <p>Gracias a la física moderna se crean dispositivos más ligeros, resistentes y eficientes.</p>
-        
-        <!-- Texto desplegable -->
-        <div class="extra-content">
-          El estudio a escala atómica ha permitido crear materiales como el grafeno, la cerámica ultrarresistente utilizada en baterías modernas y cristales de fibra óptica que transmiten internet a la velocidad de la luz.
-        </div>
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80" alt="Materiales Avanzados">
       </div>
-      <button class="btn-toggle" onclick="toggleCard(this)">
-        <span>Leer más</span> &rarr;
-      </button>
+      <div class="card-content">
+        <h3>4. Materiales Avanzados</h3>
+        <p>Permite la creación de componentes más ligeros, resistentes y eficientes en la tecnología diaria.</p>
+        
+        <div class="extra-content">
+          <strong>Aplicación práctica:</strong><br>
+          La física del estado sólido permite crear fibra óptica para transmitir internet veloz, baterías de iones de litio duraderas y materiales como el grafeno para pantallas flexibles.
+        </div>
+
+        <button class="btn-toggle" onclick="toggleCard(this)">
+          <span>Leer más</span> &rarr;
+        </button>
+      </div>
     </div>
 
     <!-- Tarjeta 5 -->
     <div class="card">
-      <div>
-        <div class="card-icon">🏥</div>
-        <h3>5. Medicina y Tecnología</h3>
-        <p>La física moderna permite imágenes médicas más precisas (MRI, TAC) y tratamientos curativos más efectivos.</p>
-        
-        <!-- Texto desplegable -->
-        <div class="extra-content">
-          La Resonancia Magnética (RM) utiliza superconductores y campos magnéticos cuánticos para fotografiar el interior del cuerpo humano sin usar radiación dañina, salvando millones de vidas al año.
-        </div>
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80" alt="Medicina y Tecnología">
       </div>
-      <button class="btn-toggle" onclick="toggleCard(this)">
-        <span>Leer más</span> &rarr;
-      </button>
+      <div class="card-content">
+        <h3>5. Medicina y Tecnología</h3>
+        <p>Permite imágenes médicas de alta precisión (MRI, TAC) y tratamientos diagnósticos no invasivos.</p>
+        
+        <div class="extra-content">
+          <strong>Aplicación práctica:</strong><br>
+          La Resonancia Magnética (RM) usa imanes superconductores y ondas de radio para obtener imágenes tridimensionales de órganos sin exponer al paciente a radiaciones nocivas.
+        </div>
+
+        <button class="btn-toggle" onclick="toggleCard(this)">
+          <span>Leer más</span> &rarr;
+        </button>
+      </div>
     </div>
 
   </section>
@@ -499,7 +556,7 @@
     <div class="summary-text">
       <div class="badge">En Resumen</div>
       <h2>La física moderna está en todas partes</h2>
-      <p>No es solo una teoría o un tema de estudio, es la base de muchas tecnologías, servicios y comodidades que hoy consideramos normales. Gracias a ella, vivimos más conectados, más informados y con más oportunidades.</p>
+      <p>No es solo una teoría de aula, es la base de las comunicaciones, la salud y la energía del mundo actual.</p>
       <div class="summary-quote">La ciencia también es parte de tu vida.</div>
     </div>
   </section>
@@ -507,10 +564,9 @@
   <!-- PIE DE PÁGINA -->
   <footer>
     <div class="author">Creado por: Ibelys Salgado 🤍</div>
-    <div>Solo para uso personal | Proyecto de Física Moderna</div>
+    <div>Solo para uso personal | Acceso mediante código QR</div>
   </footer>
 
-  <!-- SCRIPT PARA DESPLEGAR TEXTO -->
   <script>
     function toggleCard(button) {
       const card = button.closest('.card');
